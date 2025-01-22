@@ -1,0 +1,31 @@
+###
+GET http://localhost:3478/carts
+###
+GET http://localhost:3478/carts/64
+
+###
+POST http://localhost:3478/carts
+Content-Type: application/json
+
+{
+    "id": "product1",
+    "name": "product1",
+    "image": "img/product1.png",
+    "amount": "1",
+    "price": "1000",
+    "weight": "1"
+}
+###
+PUT  http://localhost:3478/carts/64
+Content-Type: application/json
+
+{
+    "id": "product2",
+    "name": "product2",
+    "image": "img/product2.png",
+    "amount": "1",
+    "price": "1000",
+    "weight": "1"
+}
+###
+DELETE  http://localhost:3478/carts/64

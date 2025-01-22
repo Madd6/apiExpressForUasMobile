@@ -1,0 +1,34 @@
+{
+  "name": "apimobileexpress",
+  "version": "1.0.0",
+  "description": "api for uas mobile",
+  "keywords": [
+    "Api"
+  ],
+  "homepage": "https://github.com/Madd6/apiExpressForUasMobile#readme",
+  "bugs": {
+    "url": "https://github.com/Madd6/apiExpressForUasMobile/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Madd6/apiExpressForUasMobile.git"
+  },
+  "license": "ISC",
+  "author": "Madd",
+  "type": "commonjs",
+  "main": "api/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon api/index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
