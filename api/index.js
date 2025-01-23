@@ -212,7 +212,9 @@ app.put("/checkout/:id", async (req, res) => {
 });
 
 
-const port = 3478
-app.listen(port, () => {
-    console.log(`API Berjalan Di Port: ${port}`)
-})
+// const port = 3478
+// app.listen(port, () => {
+//     console.log(`API Berjalan Di Port: ${port}`)
+// })
+
+module.exports = app;
