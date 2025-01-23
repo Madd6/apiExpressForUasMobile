@@ -120,6 +120,96 @@ app.delete("/carts/:id", async (req,res) => {
         });
     }
 })
+app.get("/checkout", async (req, res) => {
+    try {
+        let checkout = await pool.query(`SELECT * from checkout`)
+        res.status(200).send({
+            status : true,
+            message : 'checkout retrieved successfully',
+            data : checkout.rows
+        })
+    } catch (error) {
+        res.status(500).send({
+            status: false,
+            message: 'Something went wrong',
+            error: error.message
+        });
+    }
+})
+app.get("/checkout/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        let checkout = await pool.query(`SELECT * FROM checkout WHERE "idCheckout" = $1`, [id]);
+        res.status(200).send({
+            status : true,
+            message : 'checkout retrieved successfully',
+            data : checkout.rows
+        })
+    } catch (error) {
+        res.status(500).send({
+            status: false,
+            message: 'Something went wrong',
+            error: error.message
+        });
+    }
+})
+
+app.post("/checkout", async (req, res) => {
+    try {
+        const { id, price, weight } = req.body;
+
+        const checkout = await pool.query(
+            `INSERT INTO checkout (id, price, weight) 
+             VALUES ($1, $2, $3) 
+             RETURNING *`, 
+            [id, price, weight]
+        );
+
+        res.status(200).send({
+            status: true,
+            message: 'Product added to cart successfully',
+            data: checkout.rows[0] // Mengambil baris pertama dari hasil query
+        });
+    } catch (error) {
+        res.status(500).send({
+            status: false,
+            message: 'Something went wrong',
+            error: error.message
+        });
+    }
+});
+
+app.put("/checkout/:id", async (req, res) => {
+    try {
+        const { id, price, weight } = req.body;
+        const idCheckout = req.params.id;
+        const checkout = await pool.query(
+            `UPDATE checkout 
+             SET id = $1, price = $2, weight = $3
+             WHERE "idCheckout" = $4
+             RETURNING *`, 
+            [id, price, weight, idCheckout]
+        );
+        if (checkout.rowCount === 0) {
+            return res.status(404).send({
+                status: false,
+                message: 'Checkout not found'
+            });
+        }
+
+        res.status(200).send({
+            status: true,
+            message: 'Change Checkout successfully',
+            data: checkout.rows[0] // Mengambil baris pertama dari hasil query
+        });
+    } catch (error) {
+        res.status(500).send({
+            status: false,
+            message: 'Something went wrong',
+            error: error.message
+        });
+    }
+});
 
 
 const port = 3478
