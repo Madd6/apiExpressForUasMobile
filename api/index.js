@@ -1,7 +1,15 @@
 const express = require('express')
 const pool = require('./db')
 const app = express()
+const cors = require("cors")
 app.use(express.json())
+
+let corsOption = {
+    origin: "*",
+    optionSuccessStatus: 200,
+    methods: "GET, POST, PUT, DELETE"
+}
+app.use(cors(corsOption));
 
 app.get("/carts", async (req, res) => {
     try {
